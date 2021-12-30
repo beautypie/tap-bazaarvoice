@@ -44,15 +44,12 @@ class ReviewsStream(BazaarvoiceStream):
         th.Property("ReviewText", th.StringType),
         th.Property("Title", th.StringType),
         th.Property("UserNickname", th.StringType),
-        # TODO: How can we do this with generic JSON keys but same value structure
-        # th.Property("ContextDataValues", th.ObjectType(
-        #     th.Property("Age", th.ObjectType(
-        #         th.Property("Id", th.StringType),
-        #         th.Property("Value", th.StringType),
-        #         th.Property("ValueLabel", th.StringType),
-        #         th.Property("DimensionLabel", th.StringType),
-        #     ))
-        # )),
+        th.Property("ContextDataValues", th.ObjectType(
+            th.Property("Id", th.StringType),
+            th.Property("Value", th.StringType),
+            th.Property("ValueLabel", th.StringType),
+            th.Property("DimensionLabel", th.StringType),
+        )),
         th.Property("SecondaryRatings", th.ObjectType(
             th.Property("Value", th.ObjectType(
                 th.Property("Id", th.StringType),
@@ -85,21 +82,25 @@ class ReviewsStream(BazaarvoiceStream):
                 th.Property("DisplayType", th.StringType),
             )),
         )),
-        # th.Property("TagDimensions", th.ObjectType),
+        th.Property("TagDimensions", th.ObjectType(
+            th.Property("Id", th.StringType),
+            th.Property("Label", th.StringType),
+            th.Property("Values", th.ArrayType(th.StringType)),
+        )),
         th.Property("RatingRange", th.NumberType),
-        # th.Property("Videos", th.ArrayType(th.StringType)),  # no data to verify type
-        # th.Property("ClientResponses", th.ArrayType(th.StringType)),  # no data to verify type
+        th.Property("Videos", th.ArrayType(th.StringType)),  # no data to verify type
+        th.Property("ClientResponses", th.ArrayType(th.StringType)),  # no data to verify type
         th.Property("IsSyndicated", th.BooleanType),
         th.Property("UserLocation", th.StringType),
-        # th.Property("BadgesOrder", th.ArrayType(th.StringType)),  # no data to verify type
-        # th.Property("Pros", th.StringType),  # no data to verify type
-        # th.Property("CommentIds", th.ArrayType(th.NumberType)),  # no data to verify type
-        # th.Property("Badges", th.ObjectType),
-        # th.Property("AdditionalFieldsOrder", th.ArrayType),  # no data to verify type
-        # th.Property("Cons", th.StringType),  # no data to verify type
+        th.Property("BadgesOrder", th.ArrayType(th.StringType)),  # no data to verify type
+        th.Property("Pros", th.StringType),  # no data to verify type
+        th.Property("CommentIds", th.ArrayType(th.NumberType)),  # no data to verify type
+        # th.Property("Badges", th.ObjectType),  # no data to verify type
+        th.Property("AdditionalFieldsOrder", th.ArrayType(th.NumberType)),  # no data to verify type
+        th.Property("Cons", th.StringType),  # no data to verify type
         th.Property("Helpfulness", th.NumberType),
-        # th.Property("ProductRecommendationIds", th.ArrayType(th.NumberType)),  # no data to verify type
-        # th.Property("Photos", th.ArrayType(th.StringType)),  # no data to verify type
-        # th.Property("AdditionalFields", th.ObjectType),  # no data to verify type
-        # th.Property("InappropriateFeedbackList", th.ArrayType(th.StringType)),  # no data to verify type
+        th.Property("ProductRecommendationIds", th.ArrayType(th.NumberType)),  # no data to verify type
+        th.Property("Photos", th.ArrayType(th.StringType)),  # no data to verify type
+        # th.Property("AdditionalFields", th.ObjectType()),  # no data to verify type
+        th.Property("InappropriateFeedbackList", th.ArrayType(th.StringType)),  # no data to verify type
     ).to_dict()
