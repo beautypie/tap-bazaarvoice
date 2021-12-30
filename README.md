@@ -6,17 +6,18 @@ Built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps.
 
 ## Installation
 
-- [ ] `Developer TODO:` Update the below as needed to correctly describe the install procedure. For instance, if you do not have a PyPi repo, or if you want users to directly install from your git repo, you can modify this step as appropriate.
-
 ```bash
-pipx install tap-bazaarvoice
+pipx install git+https://github.com/gthesheep/tap-bazaarvoice.git
 ```
 
 ## Configuration
 
 ### Accepted Config Options
 
-- [ ] `Developer TODO:` Provide a list of config options accepted by the tap.
+* api_key: API Token gained from Bazaarvoice
+* environment: Bazaarvoice environment (staging/ production)
+* api_version: API Version, i.e. "5.4"
+* page_size: Page size for pagination, default 10
 
 A full list of supported settings and capabilities for this
 tap is available by running:
@@ -27,7 +28,7 @@ tap-bazaarvoice --about
 
 ### Source Authentication and Authorization
 
-- [ ] `Developer TODO:` If your tap requires special access on the source system, or any special authentication requirements, provide those here.
+Obtaining API Keys can be done via the process described [here](https://developer.bazaarvoice.com/conversations-api/api-key-processes/requesting-api-keys).
 
 ## Usage
 
@@ -40,10 +41,6 @@ tap-bazaarvoice --version
 tap-bazaarvoice --help
 tap-bazaarvoice --config CONFIG --discover > ./catalog.json
 ```
-
-## Developer Resources
-
-- [ ] `Developer TODO:` As a first step, scan the entire project for the text "`TODO:`" and complete any recommended steps, deleting the "TODO" references once completed.
 
 ### Initialize your Development Environment
 
