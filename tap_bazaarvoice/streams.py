@@ -8,7 +8,7 @@ from tap_bazaarvoice.client import BazaarvoiceStream
 class ReviewsStream(BazaarvoiceStream):
 
     name = "reviews"
-    path = "/data/reviews.json?Stats=Reviews&Include=Comments,Products"
+    path = "/data/reviews.json?Stats=Reviews,Questions,Answers&Include=Authors,Categories,Comments,Products"
     primary_keys = ["Id"]
     replication_key = None  # TODO: Change to LastModificationTime
 
@@ -200,7 +200,7 @@ class ReviewsCommentsStream(BazaarvoiceStream):
 class QuestionsStream(BazaarvoiceStream):
 
     name = "questions"
-    path = "/data/questions.json?Include=Authors,Categories,Products,Reviews&Stats=Reviews,Questions,Answers"
+    path = "/data/questions.json?Include=Authors,Categories,Products,Answers&Stats=Reviews,Questions,Answers"
     primary_keys = ["Id"]
     replication_key = None  # TODO: Change to LastModificationTime
 
