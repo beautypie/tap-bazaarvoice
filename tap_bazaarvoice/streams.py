@@ -381,3 +381,36 @@ class ProductsStream(BazaarvoiceStream):
         th.Property("TotalQuestionCount", th.NumberType),
         th.Property("TotalAnswerCount", th.NumberType),
     ).to_dict()
+
+    def get_child_context(self, record: dict, context: Optional[dict]) -> dict:
+        """Return a context dictionary for child streams."""
+        return {
+            "product_id": record["Id"]
+        }
+
+
+class ProductStatisticsStream(BazaarvoiceStream):
+
+    name = "product_statistics"
+    parent_stream_type = ProductsStream
+    path = "/data/statistics.json?Stats=Reviews,NativeReviews&IncentivizedStats=True&Filter=ProductId:eq:{product_id}"
+    primary_keys = ["ProductId"]
+    replication_key = None
+    ignore_parent_replication_keys = True
+    records_jsonpath = "$[*]..ProductStatistics"
+
+    schema = th.PropertiesList(
+        th.Property("ProductId", th.StringType),
+        th.Property("ReviewStatistics", th.ObjectType(
+            th.Property("AverageOverallRating", th.NumberType),
+            th.Property("IncentivizedReviewCount", th.NumberType),
+            th.Property("OverallRatingRange", th.NumberType),
+            th.Property("TotalReviewCount", th.NumberType),
+        )),
+        th.Property("NativeReviewStatistics", th.ObjectType(
+            th.Property("AverageOverallRating", th.NumberType),
+            th.Property("IncentivizedReviewCount", th.NumberType),
+            th.Property("OverallRatingRange", th.NumberType),
+            th.Property("TotalReviewCount", th.NumberType),
+        )),
+    ).to_dict()
