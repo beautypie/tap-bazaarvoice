@@ -1,4 +1,5 @@
 """Stream type classes for tap-bazaarvoice."""
+from typing import Optional
 
 from singer_sdk import typing as th  # JSON Schema typing helpers
 
