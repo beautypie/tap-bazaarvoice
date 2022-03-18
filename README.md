@@ -1,6 +1,6 @@
 # tap-bazaarvoice
 
-`tap-bazaarvoice` is a Singer tap for Bazaarvoice.
+`tap-bazaarvoice` is a Singer tap for the [Bazaarvoice API](https://developer.bazaarvoice.com/conversations-api/reference/v5.4).
 
 Built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps.
 
