@@ -36,7 +36,7 @@ class AuthorsStream(BazaarvoiceStream):
                 th.Property("Value", th.StringType),
                 th.Property("ValueLabel", th.StringType),
                 th.Property("DimensionLabel", th.StringType),
-            ),
+            )),
         )),
         th.Property("ProductRecommendationIds", th.ArrayType(th.StringType)),
         th.Property("Videos", th.ArrayType(th.ObjectType(
