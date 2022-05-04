@@ -6,6 +6,126 @@ from singer_sdk import typing as th  # JSON Schema typing helpers
 from tap_bazaarvoice.client import BazaarvoiceStream
 
 
+class AuthorsStream(BazaarvoiceStream):
+
+    name = "authors"
+    path = "/data/authors.json?Stats=Reviews,Questions,Answers&Include=Authors,Categories,Comments,Products"
+    primary_keys = ["Id"]
+    replication_key = None  # TODO: Change to LastModificationTime
+
+    schema = th.PropertiesList(
+        th.Property("Id", th.StringType),
+        th.Property("ContextDataValuesOrder", th.ArrayType(th.StringType)),
+        th.Property("Location", th.StringType),
+        th.Property("ContributorRank", th.StringType),
+        
+        th.Property("UserNickname", th.StringType),
+        th.Property("LastModeratedTime", th.DateTimeType),
+        th.Property("ModerationStatus", th.StringType),
+        th.Property("SubmissionTime", th.DateTimeType),
+        th.Property("ThirdPartyIds", th.ArrayType(th.StringType)),
+        th.Property("ContextDataValues", th.ObjectType(
+            th.Property("Age", th.ObjectType(
+                th.Property("Id", th.StringType),
+                th.Property("Value", th.StringType),
+                th.Property("ValueLabel", th.StringType),
+                th.Property("DimensionLabel", th.StringType),
+            ),
+            th.Property("SkinType", th.ObjectType(
+                th.Property("Id", th.StringType),
+                th.Property("Value", th.StringType),
+                th.Property("ValueLabel", th.StringType),
+                th.Property("DimensionLabel", th.StringType),
+            ),
+        )),
+        th.Property("ProductRecommendationIds", th.ArrayType(th.StringType)),
+        th.Property("Videos", th.ArrayType(th.ObjectType(
+            th.Property("Caption", th.StringType),
+            th.Property("VideoId", th.StringType),
+            th.Property("VideoIframeUrl", th.StringType),
+            th.Property("VideoHost", th.StringType),
+            th.Property("VideoThumbnailUrl", th.StringType),
+            th.Property("VideoUrl", th.StringType),
+        ))),
+        th.Property("BadgesOrder", th.ArrayType(th.StringType)),
+        th.Property("AdditionalFields", th.ArrayType(th.StringType)),
+        th.Property("Badges", th.ArrayType(th.StringType)),
+        th.Property("StoryIds", th.ArrayType(th.StringType)),
+        th.Property("QuestionIds", th.ArrayType(th.StringType)),
+        th.Property("CommentIds", th.ArrayType(th.StringType)),
+        th.Property("AdditionalFieldsOrder", th.ArrayType(th.NumberType)),
+        th.Property("ReviewIds", th.ArrayType(th.StringType)),
+        th.Property("AnswerIds", th.ArrayType(th.StringType)),
+        th.Property("SecondaryRatingsOrder", th.ArrayType(th.NumberType)),
+        th.Property("SecondaryRatings", th.ArrayType(th.StringType)),
+        th.Property("Avatar", th.ArrayType(th.StringType)),
+        th.Property("SubmissionId", th.StringType),
+        th.Property("Photos", th.ArrayType(th.ObjectType(
+            th.Property('Id', th.StringType),
+            th.Property('Caption', th.StringType),
+            th.Property('Sizes', th.ObjectType(
+                th.Property('normal', th.ObjectType(
+                    th.Property('Id', th.StringType),
+                    th.Property('Url', th.StringType),
+                )),
+                th.Property('thumbnail', th.ObjectType(
+                    th.Property('Id', th.StringType),
+                    th.Property('Url', th.StringType),
+                )),
+                th.Property('large', th.ObjectType(
+                    th.Property('Id', th.StringType),
+                    th.Property('Url', th.StringType),
+                )),
+            )),
+            th.Property('SizesOrder', th.ArrayType(th.StringType)),
+        ))),
+        th.Property("QAStatistics", th.ObjectType(
+            th.Property("QuestionHelpfulVoteCount", th.NumberType),
+            th.Property("FeaturedAnswerCount", th.NumberType),
+            th.Property("TotalAnswerCount", th.NumberType),
+            th.Property("FeaturedQuestionCount", th.NumberType),
+            th.Property("QuestionNotHelpfulVoteCount", th.NumberType),
+            th.Property("BestAnswerCount", th.NumberType),
+            th.Property("AnswerHelpfulVoteCount", th.NumberType),
+            th.Property("HelpfulVoteCount", th.NumberType),
+            th.Property("AnswerNotHelpfulVoteCount", th.NumberType),
+            th.Property("TotalQuestionCount", th.NumberType),
+            th.Property("FirstAnswerTime", th.DateTimeType),
+            th.Property("LastQuestionAnswerTime", th.DateTimeType),
+            th.Property("FirstQuestionTime", th.DateTimeType),
+            th.Property("LastAnswerTime", th.DateTimeType),
+            th.Property("LastQuestionTime", th.DateTimeType),
+            # th.Property("TagDistribution", th.ObjectType(th.StringType)),
+            # th.Property("ContextDataDistribution", th.ObjectType(th.StringType)),
+            th.Property("TagDistributionOrder", th.ArrayType(th.StringType)),
+            th.Property("ContextDataDistributionOrder", th.ArrayType(th.StringType)),
+        )),
+        th.Property("TotalQuestionCount", th.NumberType),
+        th.Property("TotalAnswerCount", th.NumberType),
+        th.Property("ReviewStatistics", th.ObjectType(
+            th.Property("RatingsOnlyReviewCount", th.NumberType),
+            th.Property("FeaturedReviewCount", th.NumberType),
+            th.Property("RecommendedCount", th.NumberType),
+            th.Property("TotalReviewCount", th.NumberType),
+            th.Property("NotRecommendedCount", th.NumberType),
+            # th.Property("ContextDataDistribution", th.ObjectType(th.StringType)),
+            th.Property("ContextDataDistributionOrder", th.ArrayType(th.StringType)),
+            th.Property("SecondaryRatingsAveragesOrder", th.ArrayType(th.StringType)),
+            # th.Property("TagDistribution", th.ObjectType(th.StringType)),
+            th.Property("FirstSubmissionTime", th.DateTimeType),
+            th.Property("HelpfulVoteCount", th.NumberType),
+            th.Property("TagDistributionOrder", th.ArrayType(th.StringType)),
+            th.Property("AverageOverallRating", th.NumberType),
+            th.Property("RatingDistribution", th.ArrayType(th.StringType)),
+            th.Property("LastSubmissionTime", th.DateTimeType),
+            # th.Property("SecondaryRatingsAverages", th.ObjectType(th.StringType)),
+            th.Property("OverallRatingRange", th.NumberType),
+            th.Property("NotHelpfulVoteCount", th.NumberType),
+        )),
+        th.Property("TotalReviewCount", th.NumberType),
+    ).to_dict()
+
+
 class ReviewsStream(BazaarvoiceStream):
 
     name = "reviews"
