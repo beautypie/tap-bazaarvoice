@@ -30,7 +30,7 @@ class AuthorsStream(BazaarvoiceStream):
                 th.Property("Value", th.StringType),
                 th.Property("ValueLabel", th.StringType),
                 th.Property("DimensionLabel", th.StringType),
-            ),
+            )),
             th.Property("SkinType", th.ObjectType(
                 th.Property("Id", th.StringType),
                 th.Property("Value", th.StringType),
