@@ -535,3 +535,26 @@ class ProductStatisticsStream(BazaarvoiceStream):
             th.Property("TotalReviewCount", th.NumberType),
         )),
     ).to_dict()
+
+
+class CategoriesStream(BazaarvoiceStream):
+
+    name = "categories"
+    path = "/data/categories.json"
+    primary_keys = ["Id"]
+    replication_key = None  # TODO: Change to LastModificationTime
+
+    schema = th.PropertiesList(
+        th.Property("Name", th.StringType),
+        th.Property("Id", th.StringType),
+        th.Property("Active", th.BooleanType),
+        th.Property("Disabled", th.BooleanType),
+        th.Property("ParentId", th.StringType),
+        th.Property("ProductIds", th.ArrayType(th.StringType)),
+        th.Property("ImageUrl", th.StringType),
+        th.Property("QuestionIds", th.ArrayType(th.StringType)),
+        th.Property("AttributesOrder", th.ArrayType(th.StringType)),
+        th.Property("CategoryPageUrl", th.StringType),
+        th.Property("Attributes", th.ObjectType()),
+        th.Property("StoryIds", th.ArrayType(th.StringType)),
+    ).to_dict()
