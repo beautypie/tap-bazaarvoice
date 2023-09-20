@@ -7,6 +7,7 @@ from singer_sdk import typing as th  # JSON schema typing helpers
 
 from tap_bazaarvoice.streams import (
     AuthorsStream,
+    CategoriesStream,
     QuestionsStream,
     ProductsStream,
     ProductStatisticsStream,
@@ -15,6 +16,7 @@ from tap_bazaarvoice.streams import (
 )
 STREAM_TYPES = [
     AuthorsStream,
+    CategoriesStream,
     QuestionsStream,
     ProductsStream,
     ProductStatisticsStream,
